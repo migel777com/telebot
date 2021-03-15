@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package commandpack;
+
+option go_package="monjjubot/main";
+
+message CommandPackRequest {
+  string command = 1;
+  string chat_id =2;
+}
+
+message CommandPackResponse {
+  bool status = 1;
+  string response = 2;
+}
+
+service TelegramBotService{
+  //Unary
+  rpc CommandPack(CommandPackRequest) returns (CommandPackResponse) {};
+}

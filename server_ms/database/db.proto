@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package databaseproto;
+
+option go_package="monjjubot/database";
+
+message bookRequest {
+  int64 course_id = 1;
+  string subject = 2;
+}
+
+message bigResponse {
+  repeated BookPack bookPacks = 1;
+}
+
+message BookPack{
+  int64 book_id = 1;
+  int64 course_id = 2;
+  string subject = 3;
+  string book_name = 4;
+  string book_link = 5;
+}
+
+message registerRequest{
+  string chat_id = 1;
+  string user_email = 2;
+  string vkey = 3;
+}
+
+message registerResponse{
+  bool status = 1;
+  string message = 2;
+}
+
+message confirmRequest{
+  string vkey = 1;
+}
+
+message verification_request{
+  string chatid = 1;
+}
+
+message verification_response{
+  bool status = 1;
+}
+
+service DatabaseAccessService{
+  rpc getBooks(bookRequest) returns (bigResponse) {};
+  rpc registerUser(registerRequest) returns (registerResponse) {};
+  rpc confirmRegister(confirmRequest) returns (registerResponse) {};
+  rpc checkVerification(verification_request) returns (verification_response) {};
+}
